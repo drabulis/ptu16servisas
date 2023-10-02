@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOTO Fix</title>
+</head>
+<body>
+    <h1>Welcome to MOTO Fix</h1>
+    <h2>
+        <ul>
+            <li>Models we can fix:
+                <ul> {% for car in cars %}
+                 <li>{{ car }}</li>
+                {% endfor %}
+                </ul>
+                </li>
+            <li>Satisfied clients: {{ num_customers }}</li>
+            <li>Orders complete: {{ orders }}</li>
+        </ul>
+    </h2>
+    <p></p>
+    <h3>
+        <p>Services:</p>
+        <ul>
+            {% for service in services %}
+                <li>Service: {{service.name}} Price: {{  service.price }}</li>
+            {% endfor %}
+            
+
+        </ul>
+    </h3>
+</body>
+</html>
