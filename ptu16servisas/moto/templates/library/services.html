@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Now we offer!</h1>
+{% if services_list  %}
+<table>
+    <tr>
+        <th>Service</th>
+        <th>Price</th>
+    </tr>
+    {% for service in services_list %}
+        <tr>
+        <td>{{service.name}}</td>
+        <td>{{service.price}}$</td>
+        </tr>
+    {% endfor %}
+    
+</table>
+{% else %}
+<p>We are not offering services right now.</p>
+{% endif %}
+{% endblock content %}

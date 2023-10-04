@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<p>Models we can fix:
+<ul> 
+    {% for model in models_list %}
+    <li>{{ model }}</li>
+    {% endfor %}
+</ul>
+</p>
+{% endblock content %}
