@@ -9,7 +9,7 @@
     </tr>
     {% for service in services_list %}
         <tr>
-        <td>{{service.name}}</td>
+        <td><a href="{% url 'part_service_description' service.pk %}">{{service.name}}</a></td>
         <td>{{service.price}}$</td>
         </tr>
     {% endfor %}

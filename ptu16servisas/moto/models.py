@@ -13,6 +13,7 @@ STATUS_CHOICES = [
 class PartService(models.Model):
     name = models.CharField(_("Name"), max_length=50)
     price = models.IntegerField()
+    description = models.TextField(_("Description"), blank=True, max_length=1000)
     
 
     class Meta:

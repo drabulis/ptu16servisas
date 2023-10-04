@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.views import generic
 from . import models
 
 def index(request):
@@ -23,3 +24,13 @@ def services(request):
                 'library/services.html', 
                 {'services_list' : models.PartService.objects.all()}
                 )
+
+def part_service_description(request, pk):
+    return render(
+        request, 'library/part_service_description.html',
+        {'part_service' : get_object_or_404(models.PartService.objects.all(), pk=pk)}
+    )
+
+class CarModelView(generic.DetailView):
+    model = models.CarModel
+    template_name = 'library/car_model.html'
