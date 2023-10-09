@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views import generic
+from django.http import HttpRequest
 from . import models
 
 def index(request):
@@ -34,3 +35,14 @@ def part_service_description(request, pk):
 class CarModelView(generic.DetailView):
     model = models.CarModel
     template_name = 'library/car_model.html'
+
+
+class OrderLineView(generic.DetailView):
+    model = models.OrderLine
+    template_name = 'library/order_line.html'
+
+def order_line(request):
+    return render(
+        request, 'library/order_line.html',
+        {'order_line_list1' : models.OrderLine.objects.all()}
+    )
