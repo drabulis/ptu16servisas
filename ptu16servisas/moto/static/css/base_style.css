@@ -49,3 +49,27 @@ th, td {
     border: 1px solid black;
     padding: 0.5rem;
 }
+form p label {
+    min-width: 9rem;
+    display: inline-block;
+}
+div.messages {
+    margin: 0.5rem;
+    padding: 0.3rem;
+    border: 1px solid #999999;
+}
+.messages-error {
+    background-color: rgb(224, 133, 133);
+}
+.messages-success {
+    background-color: rgb(114, 211, 114);
+}
+.messages-warning {
+    background-color: rgb(255, 217, 102);
+}
+.messages-info {
+    background-color: rgb(255, 255, 153);
+}
+.messages-debug {
+    background-color: rgb(211, 255, 153);
+}

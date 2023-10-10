@@ -1,6 +1,8 @@
+from datetime import date
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 
 STATUS_CHOICES = [
     (0, "Reserved"),
@@ -9,6 +11,7 @@ STATUS_CHOICES = [
     (3, "Canceled"),
 ]
 
+User = get_user_model()
 
 class PartService(models.Model):
     name = models.CharField(_("Name"), max_length=50)
@@ -103,7 +106,12 @@ class OrderLine(models.Model):
     quantinity = models.IntegerField()
     price = models.IntegerField()
     status = models.PositiveSmallIntegerField(_("Status"), choices=STATUS_CHOICES, default=0, db_index=True)
-    
+    customer = models.ForeignKey(User,
+                                verbose_name=_(""),
+                                on_delete=models.CASCADE,
+                                null=True,
+                                blank=True,
+                                )
 
     class Meta:
         verbose_name = _("OrderLine")
@@ -116,3 +124,32 @@ class OrderLine(models.Model):
     def get_absolute_url(self):
         return reverse("OrderLine_detail", kwargs={"pk": self.pk})
 
+    @property
+    def total_price(self):
+        return self.quantinity * self.price
+
+class PartServiceReview(models.Model):
+    service = models.ForeignKey(PartService, 
+                                verbose_name=_("Service"), 
+                                on_delete=models.CASCADE,
+                                related_name="review",)
+    reviewer = models.ForeignKey(User, 
+                                 verbose_name=_("Reviewer"), 
+                                 on_delete=models.CASCADE,
+                                 related_name="service_review",)
+    content = models.TextField(_("Content"), max_length=4000)
+    created_at = models.DateTimeField(_("Created at"), 
+                                      auto_now_add=True, 
+                                      db_index=True)
+
+    class Meta:
+        verbose_name = _("ServiceReview")
+        verbose_name_plural = _("ServiceReviews")
+        ordering = ["-created_at"]
+    def __str__(self):
+        return f"{self.service} {self.reviewer}"
+
+    def get_absolute_url(self):
+        return reverse("PartServiceReview_detail", kwargs={"pk": self.pk})
+
+    

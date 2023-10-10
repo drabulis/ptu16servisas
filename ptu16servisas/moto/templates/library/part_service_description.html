@@ -2,4 +2,21 @@
 {% block content %}
 <h1>{{ part_service }}</h1>
 <div class= "info">{{part_service.description}}</div>
+<h2>Reviews</h2>
+{% if user.is_authenticated %}
+<form method='post' action="{{ request.path }}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit">
+</form>
+{% endif %}
+{% if partservice.rewiews.all %}
+<ul>
+    {% for review in partservice.rewiews.all %}
+    <li>
+        <h3>{{ review.reviewer }}{{ review.created_at }}</h3>
+        <p>{{ review.content }}</p>
+    </li>
+    {% endfor %}
+{% endif %}
 {% endblock content %}
